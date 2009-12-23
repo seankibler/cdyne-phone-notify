@@ -1,0 +1,11 @@
+= CDYNE PhoneNotify
+
+Rails gem for interfacing to the CDYNE PhoneNotify API
+
+== Install
+
+	gem install cdyne-phone-notify --source http://gems.github.com
+
+== Usage
+
+

@@ -4,9 +4,9 @@ class PhoneNotify
 
   attr_reader :api
 
-	config = YAML.load_file("#{RAILS_ROOT}/config/phone_notify.yml")
-	PHONE_NOTIFY_WSDL=config[:phone_notify_wsdl]
-	LICENSE_KEY=config[:license_key]
+	config = YAML.load_file("#{RAILS_ROOT}/config/phone_notify.yml")[RAILS_ENV]
+	PHONE_NOTIFY_WSDL=config['phone_notify_wsdl']
+	LICENSE_KEY=config['license_key']
 
   def initialize()
     @api = SOAP::WSDLDriverFactory.new(PHONE_NOTIFY_WSDL).create_rpc_driver

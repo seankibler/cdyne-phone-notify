@@ -64,10 +64,15 @@ class PhoneNotify
 	end
 
   def upload_sound_file(data, name)
-  	@api.UploadSoundFile({ 
-			:FileBinary => data, 
-			:SoundFileID => name, 
-			:LicenseKey => LICENSE_KEY })
+  	resp = @api.UploadSoundFile({ 
+						:FileBinary => data, 
+						:SoundFileID => name, 
+						:LicenseKey => LICENSE_KEY })
+		if resp.UploadSuccessful
+			resp.UploadSuccessful
+		else
+			resp.ErrorResponse
+		end
   end
  
 	def return_sound_file_ids()

@@ -3,28 +3,26 @@
 Rails gem for interfacing to the CDYNE PhoneNotify API
 
 == Install
-	As a gem:
 	gem install cdyne-phone-notify --source http://gems.github.com
 
-	As a plugin:
-	script/plugin install git://github.com/badreligion/cdyne-phone-notify.git
+or 
+	
+  script/plugin install git://github.com/badreligion/cdyne-phone-notify.git
 
 == Usage
 === Send a plain text message:
-caller = PhoneNotify.new
-msg = caller.create_basic_message('111-111-1111', 'Hello world.')
-caller.send_basic_message(msg)
+ caller = PhoneNotify.new
+ msg = caller.create_basic_message('111-111-1111', 'Hello world.')
+ caller.send_basic_message(msg)
 
 === Upload a sound file and play it in a message:
-caller = PhoneNotify.new
-file = File.read('/path/to/mysoundfile.wav')
-caller.upload_sound_file(file, 'mysoundfile')
-msg = caller.create_basic_message('1111111111', '~^mysoundfile~')
-caller.send_basic_message(msg)
+ caller = PhoneNotify.new
+ file = File.read('/path/to/mysoundfile.wav')
+ caller.upload_sound_file(file, 'mysoundfile')
+ msg = caller.create_basic_message('1111111111', '~^mysoundfile~')
+ caller.send_basic_message(msg)
 
 == Other information
-=== CDYNE Phone Notify! Wiki
-http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!
+CDYNE Phone Notify! Wiki[link:http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!]
 
-=== CDYNE TextToSay (commands, speech control and debugging)
-http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!#Advanced_Scripting_.28TextToSay.29
+CDYNE TextToSay (commands, speech control and debugging)[link:http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!#Advanced_Scripting_.28TextToSay.29]

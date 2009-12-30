@@ -3,11 +3,11 @@
 Rails gem for interfacing to the CDYNE PhoneNotify API
 
 == Install
-	gem install cdyne-phone-notify --source http://gems.github.com
+ gem install cdyne-phone-notify --source http://gems.github.com
 
 or 
 	
-  script/plugin install git://github.com/badreligion/cdyne-phone-notify.git
+ script/plugin install git://github.com/badreligion/cdyne-phone-notify.git
 
 == Usage
 === Send a plain text message:
@@ -23,6 +23,6 @@ or
  caller.send_basic_message(msg)
 
 == Other information
-CDYNE Phone Notify! Wiki[link:http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!]
+{link CDYNE Phone Notify! Wiki}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!]
 
-CDYNE TextToSay (commands, speech control and debugging)[link:http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!#Advanced_Scripting_.28TextToSay.29]
+{link CDYNE TextToSay (commands, speech control and debugging)}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!#Advanced_Scripting_.28TextToSay.29]

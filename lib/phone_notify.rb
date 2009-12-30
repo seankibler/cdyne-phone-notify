@@ -43,10 +43,24 @@ class PhoneNotify
   end
 
 	def get_queue_id_status(queue_id)
-		@api.GetQueueIDStatus({	
+		resp = @api.GetQueueIDStatus({	
 						:QueueID => queue_id,
 						:LicenseKey => LICENSE_KEY })
 
+		{	:response_code 			=> resp.ResponseCode,
+			:response_text			=> resp.ResponseText,
+			:call_answered			=> resp.CallAnswered,
+			:queue_id						=> resp.QueueID,
+			:try_count					=> resp.TryCount,
+			:demo								=> resp.Demo,
+			:digits_pressed			=> resp.DigitsPressed,
+			:machine_detection	=> resp.MachineDetection,
+			:duration						=> resp.Duration,
+			:start_time					=> resp.StartTime,
+			:end_time						=> resp.EndTime,
+			:minute_rate				=> resp.MinuteRate,
+			:country						=> resp.Country,
+			:call_complete			=> resp.CallComplete }
 	end
 
   def upload_sound_file(data, name)

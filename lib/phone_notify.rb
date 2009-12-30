@@ -33,20 +33,27 @@ class PhoneNotify
   end
 
   def send_basic_message(data)
-    @api.NotifyPhoneBasic(data)
+    resp = @api.NotifyPhoneBasic(data)
+
+		if resp.ResponseCode ==  0
+			resp.QueueID
+		else
+			resp.ResponseCode
+		end
   end
 
 	def get_queue_id_status(queue_id)
-		@api.GetQueueIDStatus(
-			{	:QueueID => queue_id,
-				:LicenseKey => LICENSE_KEY })
+		@api.GetQueueIDStatus({	
+						:QueueID => queue_id,
+						:LicenseKey => LICENSE_KEY })
+
 	end
 
   def upload_sound_file(data, name)
-  	@api.UploadSoundFile(
-			{ :FileBinary => data, 
-				:SoundFileID => name, 
-				:LicenseKey => LICENSE_KEY })
+  	@api.UploadSoundFile({ 
+			:FileBinary => data, 
+			:SoundFileID => name, 
+			:LicenseKey => LICENSE_KEY })
   end
  
 	def return_sound_file_ids()
@@ -54,8 +61,8 @@ class PhoneNotify
 	end 
 
 	def remove_sound_file(sound_file_id)
-		@api.RemoveSoundFile(
-			{	:SoundFileID => sound_file_id,
-				:LicenseKey => LICENSE_KEY })
+		@api.RemoveSoundFile({
+			:SoundFileID => sound_file_id,
+			:LicenseKey => LICENSE_KEY })
 	end
 end

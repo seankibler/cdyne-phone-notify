@@ -76,12 +76,14 @@ class PhoneNotify
   end
  
 	def return_sound_file_ids()
-		@api.ReturnSoundFileIDs({:LicenseKey => LICENSE_KEY})	
+		resp = @api.ReturnSoundFileIDs({:LicenseKey => LICENSE_KEY})	
+		resp.returnSoundFileIDsResult
 	end 
 
 	def remove_sound_file(sound_file_id)
-		@api.RemoveSoundFile({
+		resp = @api.RemoveSoundFile({
 			:SoundFileID => sound_file_id,
 			:LicenseKey => LICENSE_KEY })
+		resp.ReturnSoundFileResult	
 	end
 end

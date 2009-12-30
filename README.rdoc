@@ -23,6 +23,6 @@ or
  caller.send_basic_message(msg)
 
 == Other information
-{link CDYNE Phone Notify! Wiki}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!]
+{CDYNE Phone Notify! Wiki}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!]
 
-{link CDYNE TextToSay (commands, speech control and debugging)}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!#Advanced_Scripting_.28TextToSay.29]
+{CDYNE TextToSay (commands, speech control and debugging)}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!#Advanced_Scripting_.28TextToSay.29]

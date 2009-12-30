@@ -68,10 +68,7 @@ class PhoneNotify
 						:FileBinary => data, 
 						:SoundFileID => name, 
 						:LicenseKey => LICENSE_KEY })
-		if resp.UploadSuccessful
-			resp.UploadSuccessful
-		else
-			resp.ErrorResponse
+		resp.UploadSuccessful == 'true' ? true : resp.ErrorResponse
 		end
   end
  
@@ -84,6 +81,7 @@ class PhoneNotify
 		resp = @api.RemoveSoundFile({
 			:SoundFileID => sound_file_id,
 			:LicenseKey => LICENSE_KEY })
-		resp.ReturnSoundFileResult	
+
+		resp.removeSoundFileResult	== 'true' ? true : false
 	end
 end

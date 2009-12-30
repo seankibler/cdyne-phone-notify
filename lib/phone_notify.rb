@@ -69,7 +69,6 @@ class PhoneNotify
 						:SoundFileID => name, 
 						:LicenseKey => LICENSE_KEY })
 		resp.UploadSuccessful == 'true' ? true : resp.ErrorResponse
-		end
   end
  
 	def return_sound_file_ids()

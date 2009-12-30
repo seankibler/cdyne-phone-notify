@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('cdyne-phone-notify', '0.3.0') do |p|
+Echoe.new('cdyne-phone-notify', '0.3.1') do |p|
 	p.description 							= 'Connector for the CDYNE PhoneNotify API.'
 	p.url												= 'http://github.com/skibler/cdyne-phone-notify'
 	p.author										= 'Sean Kibler'

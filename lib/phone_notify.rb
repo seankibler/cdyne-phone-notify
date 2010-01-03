@@ -13,13 +13,13 @@ class PhoneNotify
   end
 
   def get_voices()
-    resp = @api.getVoices('')
-		resp.getVoicesResult
+    response = @api.getVoices('')
+		response.getVoicesResult
   end
 
   def get_version()
-    resp = @api.GetVersion('')
-		resp.getVersionResult
+    response = @api.GetVersion('')
+		response.getVersionResult
   end
 
   def create_basic_message(phone_number, message, options={})
@@ -33,34 +33,43 @@ class PhoneNotify
   end
 
   def send_basic_message(data)
-    resp = @api.NotifyPhoneBasic(data)
+    response = @api.NotifyPhoneBasic(data)
+		result = response.notifyPhoneBasicResult
 
-		if resp.ResponseCode ==  0
-			resp.QueueID
+		# TODO - Not returning a boolean or 
+		# nil on failure makes checking for failure
+		# difficult but not having a response code
+		# makes it impossible to know why the request
+		# failed, want to satisfy both needs
+		if result.responseCode ==  '0'
+			result.queueID
 		else
-			resp.ResponseCode
+			result.responseCode
 		end
   end
 
 	def get_queue_id_status(queue_id)
-		resp = @api.GetQueueIDStatus({	
+		response = @api.GetQueueIDStatus({	
 						:QueueID => queue_id,
 						:LicenseKey => LICENSE_KEY })
+		result = response.getQueueIDStatusResult
 
-		{	:response_code 			=> resp.ResponseCode,
-			:response_text			=> resp.ResponseText,
-			:call_answered			=> resp.CallAnswered,
-			:queue_id						=> resp.QueueID,
-			:try_count					=> resp.TryCount,
-			:demo								=> resp.Demo,
-			:digits_pressed			=> resp.DigitsPressed,
-			:machine_detection	=> resp.MachineDetection,
-			:duration						=> resp.Duration,
-			:start_time					=> resp.StartTime,
-			:end_time						=> resp.EndTime,
-			:minute_rate				=> resp.MinuteRate,
-			:country						=> resp.Country,
-			:call_complete			=> resp.CallComplete }
+		{	:response_code 			=> result.responseCode,
+			:response_text			=> result.responseText,
+			:call_answered			=> result.callAnswered,
+			:queue_id						=> result.queueID,
+			:try_count					=> result.tryCount,
+			:demo								=> result.demo,
+			# TODO - Not sure how to break down a object
+			# of SOAP::Mapping::Object without a method
+			# from the API so leave it out for now
+			#:digits_pressed			=> resp.digitsPressed,
+			:machine_detection	=> result.machineDetection,
+			:duration						=> result.duration,
+			:start_time					=> result.startTime,
+			:end_time						=> result.endTime,
+			:minute_rate				=> result.minuteRate,
+			:call_complete			=> result.callComplete }
 	end
 
   def upload_sound_file(data, name)

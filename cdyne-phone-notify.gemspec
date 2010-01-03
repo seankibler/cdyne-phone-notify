@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cdyne-phone-notify}
-  s.version = "0.3.1"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sean Kibler"]
-  s.date = %q{2009-12-29}
+  s.date = %q{2010-01-03}
   s.description = %q{Connector for the CDYNE PhoneNotify API.}
   s.email = %q{seankibler@skiblerspot.net}
   s.extra_rdoc_files = ["README.rdoc", "lib/phone_notify.rb"]

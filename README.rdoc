@@ -11,16 +11,22 @@ or
 
 == Usage
 === Send a plain text message:
- caller = PhoneNotify.new
- msg = caller.create_basic_message('111-111-1111', 'Hello world.')
- caller.send_basic_message(msg)
+ api = PhoneNotify.new
+ msg = api.create_basic_message('111-111-1111', 'Hello world.')
+ api.send_basic_message(msg)
 
 === Upload a sound file and play it in a message:
- caller = PhoneNotify.new
+ api = PhoneNotify.new
  file = File.read('/path/to/mysoundfile.wav')
- caller.upload_sound_file(file, 'mysoundfile')
- msg = caller.create_basic_message('1111111111', '~^mysoundfile~')
- caller.send_basic_message(msg)
+ api.upload_sound_file(file, 'mysoundfile')
+ msg = api.create_basic_message('1111111111', '~^mysoundfile~')
+ api.send_basic_message(msg)
+
+=== Get status of message:
+ api = PhoneNotify.new
+ msg = api.create_basic_message('111-111-1111', 'Hello world.')
+ resp = api.send_basic_message(msg)
+ api.get_queue_id_status(resp)
 
 == Other information
 {CDYNE Phone Notify! Wiki}[http://wiki.cdyne.com/wiki/index.php?title=Phone_Notify!]

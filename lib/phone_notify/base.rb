@@ -11,7 +11,15 @@ class PhoneNotify::Base
 
   def get_voices()
     response = @api.getVoices('')
-		response.getVoicesResult
+		soap_mapping_objects = response.getVoicesResult
+    voices = soap_mapping_objects["Voice"]
+    voices.collect {|v| { :id => v["VoiceID"],
+                          :name => v["VoiceName"],
+                          :gender => v["VoiceGender"],
+                          :age => v["VoiceAge"],
+                          :language => v["VoiceLanguage"],
+                          :summary => v["VoiceSummary"]}
+      }
   end
 
   def get_version()
@@ -79,7 +87,8 @@ class PhoneNotify::Base
  
 	def return_sound_file_ids()
 		resp = @api.ReturnSoundFileIDs({:LicenseKey => LICENSE_KEY})	
-		resp.returnSoundFileIDsResult
+		soap_mapping_object = resp.returnSoundFileIDsResult
+    soap_mapping_object["string"].to_a
 	end 
 
 	def remove_sound_file(sound_file_id)

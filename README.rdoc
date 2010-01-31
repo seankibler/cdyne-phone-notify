@@ -11,19 +11,19 @@ or
 
 == Usage
 === Send a plain text message:
- api = PhoneNotify.new('your ultra secret license key')
+ api = PhoneNotify::Base.new('your ultra secret license key')
  msg = api.create_basic_message('111-111-1111', 'Hello world.')
  api.send_basic_message(msg)
 
 === Upload a sound file and play it in a message:
- api = PhoneNotify.new('your ultra secret license key')
+ api = PhoneNotify::Base.new('your ultra secret license key')
  file = File.read('/path/to/mysoundfile.wav')
  api.upload_sound_file(file, 'mysoundfile')
  msg = api.create_basic_message('1111111111', '~^mysoundfile~')
  api.send_basic_message(msg)
 
 === Get status of message:
- api = PhoneNotify.new('your ultra secret license key')
+ api = PhoneNotify::Base.new('your ultra secret license key')
  msg = api.create_basic_message('111-111-1111', 'Hello world.')
  resp = api.send_basic_message(msg)
  api.get_queue_id_status(resp)

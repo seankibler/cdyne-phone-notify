@@ -1,6 +1,11 @@
-class PhoneNotify
-  require 'soap/wsdlDriver'
-	require 'yaml'
+require 'soap/wsdlDriver'
+require 'yaml'
 
-	require 'phone_notify/base.rb'
+$:.unshift(File.dirname(__FILE__) + "/phone_notify")
+require 'phone_notify/base.rb'
+
+module PhoneNotify
+  class CantConnect < StandardError; end
+  class Unavailable < StandardError; end
+  class ApiError < StandardError; end
 end

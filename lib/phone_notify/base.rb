@@ -4,12 +4,19 @@ module PhoneNotify
 
     @@wsdl = 'http://ws.cdyne.com/NotifyWS/PhoneNotify.asmx?wsdl'
     FATAL_ERROR_CODES = [3,4,5,6,7,9,10,11,13,14,15,16,17,22,23,25,26,28,32,33,35,36,37,38,39,40]
-    
+
+    #-- TODO
+    # make api a class variable so other
+    # classes can reuse it?
+    #++
     def initialize(license_key)
       @api = SOAP::WSDLDriverFactory.new(@@wsdl).create_rpc_driver
       @license_key = license_key
     end
 
+    #-- TODO
+    # move this to another class?
+    #++
     def get_voices()
       voices = {}
       soap_map_obj_array = @api.getVoices('').getVoicesResult["Voice"]
@@ -28,6 +35,9 @@ module PhoneNotify
       response.getVersionResult
     end
 
+    #-- TODO
+    # move this to another class PhoneNotify::BasicMessage
+    #++
     def create_basic_message(phone_number, message, options={})
       #validate phone number
       { :PhoneNumberToDial  => phone_number,
@@ -41,12 +51,7 @@ module PhoneNotify
     def send_basic_message(data)
       response = @api.NotifyPhoneBasic(data)
       result = response.notifyPhoneBasicResult
-
-      # TODO - Not returning a boolean or
-      # nil on failure makes checking for failure
-      # difficult but not having a response code
-      # makes it impossible to know why the request
-      # failed, want to satisfy both needs
+      
       unless is_error?(result.responseCode)
         result.queueID
       else
@@ -54,11 +59,20 @@ module PhoneNotify
       end
     end
 
+    #-- TODO
+    # put this and get_response method in another class
+    #++
     def is_error?(response_code)
       response_code = response_code.to_i if response_code.is_a?(String)
       FATAL_ERROR_CODES.include?(response_code)
     end
 
+    #-- TODO
+    # rename to message_status
+    # and either create a new method or make an extended option
+    # so only return response code and text but for extended
+    # return all attributes
+    #++
     def get_queue_id_status(queue_id)
       response = @api.GetQueueIDStatus({
               :QueueID => queue_id,
@@ -71,10 +85,10 @@ module PhoneNotify
         :queue_id						=> result.queueID,
         :try_count					=> result.tryCount,
         :demo								=> result.demo,
-        # TODO - Not sure how to break down a object
-        # of SOAP::Mapping::Object without a method
-        # from the API so leave it out for now
+        #-- TODO
+        # break this SOAP::Mapping::Object down
         #:digits_pressed			=> resp.digitsPressed,
+        #++
         :machine_detection	=> result.machineDetection,
         :duration						=> result.duration,
         :start_time					=> result.startTime,
@@ -92,6 +106,9 @@ module PhoneNotify
       response_codes
     end
 
+    #-- TODO
+    # move the next three methods to PhoneNotify::SoundFile class
+    #++
     def upload_sound_file(data, name)
       resp = @api.UploadSoundFile({
               :FileBinary => data,

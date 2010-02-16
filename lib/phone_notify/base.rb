@@ -3,7 +3,8 @@ module PhoneNotify
     attr_reader :api
 
     @@wsdl = 'http://ws.cdyne.com/NotifyWS/PhoneNotify.asmx?wsdl'
-
+    FATAL_ERROR_CODES = [3,4,5,6,7,9,10,11,13,14,15,16,17,22,23,25,26,28,32,33,35,36,37,38,39,40]
+    
     def initialize(license_key)
       @api = SOAP::WSDLDriverFactory.new(@@wsdl).create_rpc_driver
       @license_key = license_key
@@ -46,11 +47,16 @@ module PhoneNotify
       # difficult but not having a response code
       # makes it impossible to know why the request
       # failed, want to satisfy both needs
-      if result.responseCode ==  '0'
+      unless is_error?(result.responseCode)
         result.queueID
       else
-        result.responseCode
+        result.responseCode.to_i
       end
+    end
+
+    def is_error?(response_code)
+      response_code = response_code.to_i if response_code.is_a?(String)
+      FATAL_ERROR_CODES.include?(response_code)
     end
 
     def get_queue_id_status(queue_id)
@@ -75,6 +81,15 @@ module PhoneNotify
         :end_time						=> result.endTime,
         :minute_rate				=> result.minuteRate,
         :call_complete			=> result.callComplete }
+    end
+
+    def get_response_codes
+      @response_codes = {}
+      soap_map_obj_array = @api.getResponseCodes('').getResponseCodesResult["Response"]
+      soap_map_obj_array.each do |map_obj|
+        @response_codes.merge!(:code => map_obj["ResponseCode"].to_i, :message => map_obj["ResponseText"])
+      end
+      @response_codes
     end
 
     def upload_sound_file(data, name)

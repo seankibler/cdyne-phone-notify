@@ -16,7 +16,7 @@ rescue LoadError => pow
 	end
 end
 
-Echoe.new('cdyne-phone-notify', '0.6.2') do |p|
+Echoe.new('cdyne-phone-notify', '0.7.0') do |p|
 	p.author										= 'Sean Kibler'
 	p.email											= 'seankibler@skiblerspot.net'
 	p.description 							= 'Connector for the CDYNE PhoneNotify API.'

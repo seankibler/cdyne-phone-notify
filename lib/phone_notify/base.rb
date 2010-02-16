@@ -11,16 +11,16 @@ module PhoneNotify
     end
 
     def get_voices()
-      response = @api.getVoices('')
-      soap_mapping_objects = response.getVoicesResult
-      voices = soap_mapping_objects["Voice"]
-      voices.collect {|v| { :id => v["VoiceID"],
-                            :name => v["VoiceName"],
-                            :gender => v["VoiceGender"],
-                            :age => v["VoiceAge"],
-                            :language => v["VoiceLanguage"],
-                            :summary => v["VoiceSummary"]}
-        }
+      voices = {}
+      soap_map_obj_array = @api.getVoices('').getVoicesResult["Voice"]
+      soap_map_obj_array.each do |map_obj|
+        voices.merge!(map_obj["VoiceID"].to_i => {  :name => map_obj["VoiceName"],
+                                                    :gender => map_obj["VoiceGender"],
+                                                    :age => map_obj["VoiceAge"],
+                                                    :language => map_obj["VoiceLanguage"],
+                                                    :summary => map_obj["VoiceSummary"]  })
+      end
+      voices
     end
 
     def get_version()
@@ -84,12 +84,12 @@ module PhoneNotify
     end
 
     def get_response_codes
-      @response_codes = {}
+      response_codes = {}
       soap_map_obj_array = @api.getResponseCodes('').getResponseCodesResult["Response"]
       soap_map_obj_array.each do |map_obj|
-        @response_codes.merge!( map_obj["ResponseCode"].to_i =>  map_obj["ResponseText"] )
+        response_codes.merge!( map_obj["ResponseCode"].to_i =>  map_obj["ResponseText"] )
       end
-      @response_codes
+      response_codes
     end
 
     def upload_sound_file(data, name)

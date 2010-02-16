@@ -113,8 +113,8 @@ module PhoneNotify
       resp = @api.UploadSoundFile({
               :FileBinary => data,
               :SoundFileID => name,
-              :LicenseKey => @license_key })
-      resp.UploadSuccessful == 'true' ? true : resp.ErrorResponse
+              :LicenseKey => @license_key }).uploadSoundFileResult
+      resp["UploadSuccessful"] == 'true' ? true : resp.ErrorResponse
     end
 
     def return_sound_file_ids()
@@ -126,9 +126,9 @@ module PhoneNotify
     def remove_sound_file(sound_file_id)
       resp = @api.RemoveSoundFile({
         :SoundFileID => sound_file_id,
-        :LicenseKey => @license_key })
+        :LicenseKey => @license_key }).removeSoundFileResult
 
-      resp.removeSoundFileResult	== 'true' ? true : false
+      resp == 'true' ? true : false
     end
 	end
 end

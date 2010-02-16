@@ -1,14 +1,27 @@
 require 'rubygems'
 require 'rake'
-require 'echoe'
+begin
+	require 'echoe'
+rescue LoadError => pow
+	puts "Missing a dependency required for meta-operations on this gem."
+	puts "#{pow.to_s.capitalize}"
 
-Echoe.new('cdyne-phone-notify', '0.6.0') do |p|
-	p.description 							= 'Connector for the CDYNE PhoneNotify API.'
-	p.url												= 'http://github.com/skibler/cdyne-phone-notify'
+	desc 'No effect.'
+	task :default do; end
+
+	# allow running tests without Echo
+	desc 'Run test suite.'
+	task :test do
+		puts "No testing available yet."
+	end
+end
+
+Echoe.new('cdyne-phone-notify', '0.6.1') do |p|
 	p.author										= 'Sean Kibler'
 	p.email											= 'seankibler@skiblerspot.net'
-	p.ignore_pattern						= ['tmp/*', 'script/*', 'nbproject']
-	p.development_dependencies	= []
+	p.description 							= 'Connector for the CDYNE PhoneNotify API.'
+	p.url												= 'http://github.com/skibler/cdyne-phone-notify'
+	p.ignore_pattern						= /(nbproject|tmp|script)/
 end
 
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each{ |ext| load ext }

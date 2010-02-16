@@ -84,10 +84,10 @@ module PhoneNotify
     end
 
     def get_response_codes
-      @response_codes = {}
+      @response_codes = []
       soap_map_obj_array = @api.getResponseCodes('').getResponseCodesResult["Response"]
       soap_map_obj_array.each do |map_obj|
-        @response_codes.merge!(:code => map_obj["ResponseCode"].to_i, :message => map_obj["ResponseText"])
+        @response_codes << { :code => map_obj["ResponseCode"].to_i, :message => map_obj["ResponseText"] }
       end
       @response_codes
     end

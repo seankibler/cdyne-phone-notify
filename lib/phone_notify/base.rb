@@ -1,8 +1,7 @@
 module PhoneNotify
 	class Base
-    attr_reader :api
+    attr_reader :wsdl, :api, :license_key
 
-    @@wsdl = 'http://ws.cdyne.com/NotifyWS/PhoneNotify.asmx?wsdl'
     FATAL_ERROR_CODES = [3,4,5,6,7,9,10,11,13,14,15,16,17,22,23,25,26,28,32,33,35,36,37,38,39,40]
 
     #-- TODO
@@ -10,24 +9,9 @@ module PhoneNotify
     # classes can reuse it?
     #++
     def initialize(license_key)
-      @api = SOAP::WSDLDriverFactory.new(@@wsdl).create_rpc_driver
+      @wsdl = 'http://ws.cdyne.com/NotifyWS/PhoneNotify.asmx?wsdl'
+      @api = SOAP::WSDLDriverFactory.new(@wsdl).create_rpc_driver
       @license_key = license_key
-    end
-
-    #-- TODO
-    # move this to another class?
-    #++
-    def get_voices()
-      voices = {}
-      soap_map_obj_array = @api.getVoices('').getVoicesResult["Voice"]
-      soap_map_obj_array.each do |map_obj|
-        voices.merge!(map_obj["VoiceID"].to_i => {  :name => map_obj["VoiceName"],
-                                                    :gender => map_obj["VoiceGender"],
-                                                    :age => map_obj["VoiceAge"],
-                                                    :language => map_obj["VoiceLanguage"],
-                                                    :summary => map_obj["VoiceSummary"]  })
-      end
-      voices
     end
 
     def get_version()

@@ -1,8 +1,9 @@
-require 'soap/wsdlDriver'
-require 'yaml'
+$:.unshift(File.join(File.dirname(__FILE__), 'phone_notify'))
 
-$:.unshift(File.dirname(__FILE__) + "/phone_notify")
-require 'phone_notify/base.rb'
+require 'yaml'
+require 'soap/wsdlDriver'
+require 'base'
+require 'voice'
 
 module PhoneNotify
   class CantConnect < StandardError; end
